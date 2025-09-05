@@ -36,5 +36,4 @@ public class Livro {
     @JoinColumn(name = "id_autor")
     @ManyToOne
     private Autor autor;
-
 }

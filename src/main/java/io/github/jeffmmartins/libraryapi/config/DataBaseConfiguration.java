@@ -14,7 +14,7 @@ import javax.sql.DataSource;
 @Configuration
 public class DataBaseConfiguration {
 
-    //vindo fo yml
+    //vindo do yml
     @Value("${spring.datasource.url}")
     String url;
     @Value("${spring.datasource.username}")
