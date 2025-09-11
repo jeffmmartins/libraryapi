@@ -131,5 +131,7 @@ public class AutorRepositiryTest {
 
         //metodo de referencia que vai ser executado para cada um deles.
         autor.getLivros().forEach(System.out::println);
+
+
     }
 }
