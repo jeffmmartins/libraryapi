@@ -1,12 +1,16 @@
 package io.github.jeffmmartins.libraryapi.repository;
 
 import io.github.jeffmmartins.libraryapi.model.Autor;
+import io.github.jeffmmartins.libraryapi.model.GeneroLivro;
+import io.github.jeffmmartins.libraryapi.model.Livro;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.shadow.com.univocity.parsers.common.input.LineSeparatorDetector;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -16,6 +20,9 @@ public class AutorRepositiryTest {
 
     @Autowired
     AutorRepository repository;
+
+    @Autowired
+    LivroRepository livroRepository;
 
     @Test
     public void salvarTest(){
@@ -75,5 +82,39 @@ public class AutorRepositiryTest {
         var id = UUID.fromString("e74022ca-6a27-48e6-aaf5-7ac90d0a3a64");
         var maria = repository.findById(id).get();
         repository.delete(maria);
+    }
+
+    @Test
+    public void salvarAutorComLivrosTest(){
+        Autor autor = new Autor();
+        autor.setNome("Antonio");
+        autor.setNacionalidade("Americano");
+        autor.setDataNascimento(LocalDate.of(1970,8, 5));
+
+        Livro livro = new Livro();
+        livro.setIsbn("9000-000");
+        livro.setPreco(BigDecimal.valueOf(204));
+        livro.setGenero(GeneroLivro.MISTERIO);
+        livro.setTitulo("O roubo da casa assombrada");
+        livro.setDataPublicacao(LocalDate.of(1999,1,2));
+        //setando o autor indicando que o livro é do autor
+        livro.setAutor(autor);
+
+        Livro livro2 = new Livro();
+        livro2.setIsbn("99999-000");
+        livro2.setPreco(BigDecimal.valueOf(650));
+        livro2.setGenero(GeneroLivro.MISTERIO);
+        livro2.setTitulo("O roubo da casa assombrada");
+        livro2.setDataPublicacao(LocalDate.of(2000,1,2));
+        livro2.setAutor(autor);
+
+        //Adicionando os livros na lista de Autor
+        autor.setLivros(new ArrayList<>());
+        autor.getLivros().add(livro);
+        autor.getLivros().add(livro2);
+
+        repository.save(autor);
+
+        livroRepository.saveAll(autor.getLivros());
     }
 }
