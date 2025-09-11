@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.shadow.com.univocity.parsers.common.input.LineSeparatorDetector;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -116,5 +117,19 @@ public class AutorRepositiryTest {
         repository.save(autor);
 
         livroRepository.saveAll(autor.getLivros());
+    }
+
+    @Test
+    //@Transactional umas das formas de realizar.
+    void listarLivrosAutor(){
+        var id = UUID.fromString("9dd789b8-ca4f-48bb-be53-ea14f044c3b5");
+        var autor = repository.findById(id).get();
+
+        //buscar os livros do autor
+        List<Livro> livrosLista = livroRepository.findByAutor(autor);
+        autor.setLivros(livrosLista);
+
+        //metodo de referencia que vai ser executado para cada um deles.
+        autor.getLivros().forEach(System.out::println);
     }
 }
