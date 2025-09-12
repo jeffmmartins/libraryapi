@@ -1,9 +1,11 @@
 package io.github.jeffmmartins.libraryapi.repository;
 
 import io.github.jeffmmartins.libraryapi.model.Autor;
+import io.github.jeffmmartins.libraryapi.model.GeneroLivro;
 import io.github.jeffmmartins.libraryapi.model.Livro;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
@@ -50,4 +52,7 @@ public interface LivroRepository extends JpaRepository<Livro, UUID> {
             order by l.genero 
             """)
     List<String> listarGenerosAutoresBrasileiros();
+
+    @Query("select l from Livro l where l.genero = :genero order by :paramOrdenacao")
+    List<Livro> findByGenero(@Param("genero") GeneroLivro generLivro, @Param("paramOrdenacao") String nomePropriedade);
 }

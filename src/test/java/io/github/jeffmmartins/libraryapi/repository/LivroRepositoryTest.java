@@ -135,4 +135,10 @@ class LivroRepositoryTest {
         var resultado = repository.listarGenerosAutoresBrasileiros();
         resultado.forEach(System.out::println);
     }
+
+    @Test
+    void listarPorGeneroQueryParam(){
+        var resultado = repository.findByGenero(GeneroLivro.FICCAO,"dataPublicacao");
+        resultado.forEach(System.out::println);
+    }
 }
