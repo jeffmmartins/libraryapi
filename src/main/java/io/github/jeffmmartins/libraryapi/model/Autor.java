@@ -29,7 +29,7 @@ public class Autor {
     @Column(name = "nacionalidade", length = 50, nullable = false)
     private String nacionalidade;
 
-    //É eralizado o cadastro do autor e depois adiciona osm livros dentro de uma lista
+    //É realizado o cadastro do autor e depois adiciona os livros dentro de uma lista
     @OneToMany(mappedBy = "autor") // um autor pode ter muitos livros.
     private List<Livro> livros;
 }
