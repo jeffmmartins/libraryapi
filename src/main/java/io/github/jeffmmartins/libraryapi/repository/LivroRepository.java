@@ -58,6 +58,7 @@ public interface LivroRepository extends JpaRepository<Livro, UUID> {
     @Query("select l from Livro l where l.genero = :genero order by :paramOrdenacao")
     List<Livro> findByGenero(@Param("genero") GeneroLivro generLivro, @Param("paramOrdenacao") String nomePropriedade);
 
+    //Utilizado no delete e update
     @Modifying
     @Transactional
     @Query("delete from Livro where genero = ?1")
