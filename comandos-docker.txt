@@ -20,3 +20,12 @@ docker run --name librarydb -e POSTGRES_PASSWORD=postgres -e POSTGRES_USER=postg
 
 # Rodar Pgadmin 4
 docker run --name pgadmin4 -e PGADMIN_DEFAULT_EMAIL=admin@admin.com -e PGADMIN_DEFAULT_PASSWORD=admin -p 15432:80 -d --network library-network dpage/pgadmin4:8.9
+
+docker ps                 # lista os containers em execução
+docker ps -a              # lista todos os containers (parados e ativos)
+docker run nome_imagem    # cria e inicia um container
+docker run -it nome_imagem bash   # roda o container de forma interativa com terminal
+docker stop nome_container        # para um container em execução
+docker start nome_container       # inicia um container parado
+docker restart nome_container     # reinicia um container
+docker rm nome_container          # remove um container
