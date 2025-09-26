@@ -25,7 +25,7 @@ public class TransacaoService {
     public void executar(){
         //salva o autor
         Autor autor = new Autor();
-        autor.setNome("Francisca ");
+        autor.setNome("Teste Francisco");
         autor.setNacionalidade("Brasileiro");
         autor.setDataNascimento(LocalDate.of(1950,1, 31));
         autorRepository.save(autor);
@@ -36,7 +36,7 @@ public class TransacaoService {
         livro.setIsbn("9008989-900");
         livro.setPreco(BigDecimal.valueOf(100));
         livro.setGenero(GeneroLivro.FICCAO);
-        livro.setTitulo("Livro da Francisca");
+        livro.setTitulo("Teste Livro da Francisca");
         livro.setDataPublicacao(LocalDate.of(1980,1,2));
 
 
@@ -44,7 +44,8 @@ public class TransacaoService {
 
         livroRepository.save(livro);
 
-        if (autor.getNome().equals("José")){
+        // realizado a verificação se existe o autor
+        if (autor.getNome().equals("Teste Francisco")){
             throw new RuntimeException("Rollback");
         }
 
