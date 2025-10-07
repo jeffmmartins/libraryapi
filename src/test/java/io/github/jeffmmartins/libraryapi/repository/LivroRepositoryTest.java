@@ -31,15 +31,17 @@ class LivroRepositoryTest {
         livro.setTitulo("Outro Livro");
         livro.setDataPublicacao(LocalDate.of(1980,1,2));
 
-        //esse autor que foi passado ele já precisa ter o ID.
+        // Busca um autor existente
         Autor autor = autorRepository
                 .findById(UUID.fromString("2772557e-c048-4cb2-bc30-2278cb9a05c2"))
-                .orElse(null);
+                .orElseThrow(() -> new RuntimeException("Autor não encontrado"));
 
-        livro.setAutor(new Autor());
+        // Associa o autor existente
+        livro.setAutor(autor);
 
         repository.save(livro);
     }
+
 
     @Test
     void salvarCascadeTest(){

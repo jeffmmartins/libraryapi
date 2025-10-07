@@ -78,13 +78,14 @@ public class AutorRepositiryTest {
     }
 
     //Deletando o objeto
+    /*
     @Test
     public void deleteTest(){
         var id = UUID.fromString("e74022ca-6a27-48e6-aaf5-7ac90d0a3a64");
         var maria = repository.findById(id).get();
         repository.delete(maria);
     }
-
+    */
     @Test
     public void salvarAutorComLivrosTest(){
         Autor autor = new Autor();

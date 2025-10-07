@@ -36,6 +36,6 @@ public class Livro {
     private BigDecimal preco;
 
     @JoinColumn(name = "id_autor")
-    @ManyToOne//(cascade = CascadeType.ALL ) //Qulaquer operação que é realizada no livro ele vi ser realizado no autor.
+    @ManyToOne(cascade = CascadeType.ALL ) //Qulaquer operação que é realizada no livro ele vi ser realizado no autor.
     private Autor autor;
 }
