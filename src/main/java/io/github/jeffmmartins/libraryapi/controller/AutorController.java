@@ -6,6 +6,9 @@ import io.github.jeffmmartins.libraryapi.service.AutorService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping("/autores") // mapear a url que o controller vai ficar escutando.
@@ -23,6 +26,14 @@ public class AutorController {
     public ResponseEntity salvar(@RequestBody AutorDTO autor){
         Autor autorEntidade = autor.mapearParaAutor();
         autorService.salvar(autorEntidade);
+        //Apos o passo acima, o objeto tem um id
+        // código abaixo é para criar isso: http://localhost:8080/autores/889y4863275285625edgyufd
+
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("{id}")
+                .buildAndExpand(autorEntidade.getId())
+                .toUri();
+
         return new ResponseEntity("Autor salvo com sucesso" + autor, HttpStatus.CREATED);
     }
 }
