@@ -23,17 +23,18 @@ public class AutorController {
 
     @PostMapping
     // quando receber json para /autores vai mapear para o objeto AutorDTO
-    public ResponseEntity salvar(@RequestBody AutorDTO autor){
+    // No ResponseEntity o tipo é void porque não tem infomração no body.
+    public ResponseEntity<Void> salvar(@RequestBody AutorDTO autor){
         Autor autorEntidade = autor.mapearParaAutor();
         autorService.salvar(autorEntidade);
         //Apos o passo acima, o objeto tem um id
         // código abaixo é para criar isso: http://localhost:8080/autores/889y4863275285625edgyufd
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("{id}")
+                .path("/{id}")
                 .buildAndExpand(autorEntidade.getId())
                 .toUri();
 
-        return new ResponseEntity("Autor salvo com sucesso" + autor, HttpStatus.CREATED);
+        return ResponseEntity.created(location).build();
     }
 }
