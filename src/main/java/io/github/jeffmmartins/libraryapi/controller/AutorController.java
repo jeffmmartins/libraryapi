@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/autores") // mapear a url que o controller vai ficar escutando.
@@ -36,5 +37,11 @@ public class AutorController {
                 .toUri();
 
         return ResponseEntity.created(location).build();
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<AutorDTO> obterDetalhes(@PathVariable String id){
+        var idAutor = UUID.fromString(id);
+        autorService.obterPorId(idAutor);
     }
 }
