@@ -4,8 +4,13 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,6 +19,9 @@ import java.util.UUID;
 @Getter
 @Setter
 @ToString(exclude = "livros")
+//Fica observando sempre que que haver alguma alteração e se tem as anotações @LastModifiedDate e @CreatedDate
+//para funcionar precio ir no main e adicionar @EnableJpaAuditing para funcionar;
+@EntityListeners(AuditingEntityListener.class)
 public class Autor {
     @Id
     @Column(name = "id")
@@ -32,4 +40,17 @@ public class Autor {
     //É realizado o cadastro do autor e depois adiciona os livros dentro de uma lista
     @OneToMany(mappedBy = "autor") // um autor pode ter muitos livros.
     private List<Livro> livros;
+
+    @CreatedDate
+    @Column(name = "data_cadastro")
+    private LocalDateTime dataCadastro;
+
+    @LastModifiedDate
+    @Column(name = "data_Atualizacao")
+    private LocalDateTime dataAtualizacao;
+
+    @Column(name = "id_usuario")
+    private UUID idUsuario;
+
+
 }
