@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -28,9 +29,9 @@ public class AutorController {
     public ResponseEntity<Void> salvar(@RequestBody AutorDTO autor){
         Autor autorEntidade = autor.mapearParaAutor();
         autorService.salvar(autorEntidade);
+
         //Apos o passo acima, o objeto tem um id
         // código abaixo é para criar isso: http://localhost:8080/autores/889y4863275285625edgyufd
-
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(autorEntidade.getId())
@@ -42,6 +43,13 @@ public class AutorController {
     @GetMapping("{id}")
     public ResponseEntity<AutorDTO> obterDetalhes(@PathVariable String id){
         var idAutor = UUID.fromString(id);
-        autorService.obterPorId(idAutor);
+        Optional<Autor> autorOptinal = autorService.obterPorId(idAutor);
+        if(autorOptinal.isPresent()){
+            //retorna a entidade
+            Autor autor = autorOptinal.get();
+            AutorDTO dto = new AutorDTO(autor.getId(),autor.getNome(),autor.getDataNascimento(),autor.getNacionalidade());
+            return ResponseEntity.ok(dto);
+        }
+        return ResponseEntity.notFound().build();
     }
 }
