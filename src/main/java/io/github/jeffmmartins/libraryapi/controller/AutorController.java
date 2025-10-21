@@ -54,4 +54,18 @@ public class AutorController {
         //retorna informando que não foi encontrado.
         return ResponseEntity.notFound().build();
     }
+
+    //COmo não vai retornar nada, o retorno é void, sempre que não vai na no body é utilizado o void
+    //A chave de id é que indica o PathVariable é obrigatório
+    //Deletar a resposta é como noContent
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> detletar(@PathVariable  String id){
+        var autorId = UUID.fromString(id);
+        Optional<Autor> autorOptional = autorService.obterPorId(autorId);
+        if (autorOptional.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+        autorService.deletar(autorOptional.get());
+        return ResponseEntity.noContent().build();
+    }
 }
