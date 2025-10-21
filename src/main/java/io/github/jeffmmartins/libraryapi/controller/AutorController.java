@@ -40,16 +40,18 @@ public class AutorController {
         return ResponseEntity.created(location).build();
     }
 
+    //PathVariabel o valor desse parametro deve vir via URL exemplo /api/contas/1/deposito - path 1
     @GetMapping("{id}")
     public ResponseEntity<AutorDTO> obterDetalhes(@PathVariable String id){
         var idAutor = UUID.fromString(id);
         Optional<Autor> autorOptinal = autorService.obterPorId(idAutor);
         if(autorOptinal.isPresent()){
-            //retorna a entidade
+            //retorna a entidade, extrai o objeto Autor real de dentro do Optional
             Autor autor = autorOptinal.get();
             AutorDTO dto = new AutorDTO(autor.getId(),autor.getNome(),autor.getDataNascimento(),autor.getNacionalidade());
             return ResponseEntity.ok(dto);
         }
+        //retorna informando que não foi encontrado.
         return ResponseEntity.notFound().build();
     }
 }
