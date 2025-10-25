@@ -3,7 +3,6 @@ package io.github.jeffmmartins.libraryapi.controller;
 import io.github.jeffmmartins.libraryapi.controller.dto.AutorDTO;
 import io.github.jeffmmartins.libraryapi.model.Autor;
 import io.github.jeffmmartins.libraryapi.service.AutorService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;

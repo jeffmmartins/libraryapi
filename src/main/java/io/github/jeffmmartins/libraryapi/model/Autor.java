@@ -20,7 +20,7 @@ import java.util.UUID;
 @Setter
 @ToString(exclude = "livros")
 //Fica observando sempre que que haver alguma alteração e se tem as anotações @LastModifiedDate e @CreatedDate
-//para funcionar precio ir no main e adicionar @EnableJpaAuditing para funcionar;
+//para funcionar preciso ir no main e adicionar @EnableJpaAuditing para funcionar;
 @EntityListeners(AuditingEntityListener.class)
 public class Autor {
     @Id
