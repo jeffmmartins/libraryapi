@@ -11,6 +11,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/autores") // mapear a url que o controller vai ficar escutando.
@@ -77,6 +78,14 @@ public class AutorController {
             @RequestParam(value = "nome", required = false) String nome,
             @RequestParam(value = "nacionalidade", required = false)String nacionalidade){
 
+            //Liosta de autor, mas preciso transformar para lista de AutorDTO utiliza o stream.map que é
+            //mapeando o autor para o autorSTo
+            List<Autor> resultado = autorService.pesuqisa(nome, nacionalidade);
+            //pega uma stream de autores, tranfosma em uma stream de autorDTO, converter ele para uma List e chama o collectors
+            List<AutorDTO> lista = resultado.
+                    stream().
+                    map(autor -> new AutorDTO(autor.getId(), autor.getNome(), autor.getDataNascimento(), autor.getNacionalidade())).collect(Collectors.toList());
+            return ResponseEntity.ok(lista);
     }
 
 }
