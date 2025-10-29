@@ -78,10 +78,10 @@ public class AutorController {
             @RequestParam(value = "nome", required = false) String nome,
             @RequestParam(value = "nacionalidade", required = false)String nacionalidade){
 
-            //Liosta de autor, mas preciso transformar para lista de AutorDTO utiliza o stream.map que é
+            //Lista de autor, mas preciso transformar para lista de AutorDTO utiliza o stream.map que é
             //mapeando o autor para o autorSTo
             List<Autor> resultado = autorService.pesuqisa(nome, nacionalidade);
-            //pega uma stream de autores, tranfosma em uma stream de autorDTO, converter ele para uma List e chama o collectors
+            //pega uma stream de autores, transforma em uma stream de autorDTO, converter ele para uma List e chama o collectors
             List<AutorDTO> lista = resultado.
                     stream().
                     map(autor -> new AutorDTO(autor.getId(), autor.getNome(), autor.getDataNascimento(), autor.getNacionalidade())).collect(Collectors.toList());
