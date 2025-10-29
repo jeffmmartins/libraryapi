@@ -4,6 +4,7 @@ import io.github.jeffmmartins.libraryapi.model.Autor;
 import io.github.jeffmmartins.libraryapi.repository.AutorRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -28,5 +29,9 @@ public class AutorService {
 
     public void deletar(Autor autor){
         autorRepository.delete(autor);
+    }
+
+    public List<Autor> pesuqisa (String nome, String nacionalidade){
+
     }
 }

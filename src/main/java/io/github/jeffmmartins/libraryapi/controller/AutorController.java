@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -57,6 +58,7 @@ public class AutorController {
     //COmo não vai retornar nada, o retorno é void, sempre que não vai na no body é utilizado o void
     //A chave de id é que indica o PathVariable é obrigatório
     //Deletar a resposta é como noContent
+    //@PathVariable é usada para extrair (receber) informações que vêm diretamente no caminho (path) da URL.
     @DeleteMapping("{id}")
     public ResponseEntity<Void> detletar(@PathVariable  String id){
         var autorId = UUID.fromString(id);
@@ -67,4 +69,14 @@ public class AutorController {
         autorService.deletar(autorOptional.get());
         return ResponseEntity.noContent().build();
     }
+
+    //Ter cuidado quando estiver dois get para passar apenas a um parametro em um deles.
+    //required = false indica que o query param não é obrigatorio, vai entrar na função mesmo quando não for passado nada
+    @GetMapping
+    public ResponseEntity<List<AutorDTO>> pesquisar(
+            @RequestParam(value = "nome", required = false) String nome,
+            @RequestParam(value = "nacionalidade", required = false)String nacionalidade){
+
+    }
+
 }
