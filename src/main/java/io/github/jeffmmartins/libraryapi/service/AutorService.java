@@ -22,6 +22,10 @@ public class AutorService {
         return autorRepository.save(autor);
     }
 
+    public void atualizar(Autor autor){
+        autorRepository.save(autor);
+    }
+
     //Usa-se o Optional porque pode haver o autor ou nao.
     public Optional<Autor> obterPorId(UUID id){
        return autorRepository.findById(id);

@@ -88,4 +88,25 @@ public class AutorController {
             return ResponseEntity.ok(lista);
     }
 
+    //COmo não vai retornar nada no body, aplico como void.
+    //mapeado para receber o id como parametro na url
+    //@RequestBody o que vem no JSON vai ser transformando no objeto dto e @PathVariable("id")  caminho para localizar o id
+    @PutMapping("{id}")
+    public ResponseEntity<Void> atualizar(@PathVariable("id") String id,@RequestBody AutorDTO dto){
+
+        //Verificando se o autor existe.
+        var autorId = UUID.fromString(id);
+        Optional<Autor> autorOptional = autorService.obterPorId(autorId);
+        if (autorOptional.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+
+        var autor = autorOptional.get();
+        autor.setNome(dto.nome());
+        autor.setNacionalidade(dto.nacionalidade());
+        autor.setDataNascimento(dto.dataNascimento());
+
+        autorService.atualizar(autor);
+    }
+
 }
